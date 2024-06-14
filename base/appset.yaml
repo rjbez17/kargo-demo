@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: podinfo2
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements: []
+  template:
+    metadata:
+      name: 'podinfo2-{{cluster}}'
+      annotations:
+        kargo.akuity.io/authorized-stage: 'podinfo2:*'
+    spec:
+      project: podinfo2
+      source:
+        chart: podinfo
+        repoURL: https://stefanprodan.github.io/podinfo
+        targetRevision: 6.6.0
+        helm:
+          releaseName: podinfo2
+      destination:
+        server: '{{ url }}'
+        namespace: 'podinfo2-{{cluster}}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
