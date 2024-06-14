@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ignored-but-required
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: engineering-prod-002
+        ring: '0'
+        environment: sandbox
+        url: https://kubernetes.default.svc
