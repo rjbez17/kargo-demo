@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
 - ../../base
 
-namespace: podinfo2-sandbox
+namespace: podinfo2-dev
 
 patches:
   - target:
