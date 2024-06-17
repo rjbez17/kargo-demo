@@ -12,7 +12,7 @@ spec:
       annotations:
         kargo.akuity.io/authorized-stage: 'demo02-podinfo:*'
     spec:
-      project: demo2
+      project: demo02
       source:
         chart: podinfo
         repoURL: https://stefanprodan.github.io/podinfo
@@ -43,7 +43,7 @@ spec:
       annotations:
         kargo.akuity.io/authorized-stage: 'demo02-httpbin:*'
     spec:
-      project: demo2
+      project: demo02
       source:
         chart: httpbin
         repoURL: https://matheusfm.dev/charts/httpbin
