@@ -10,9 +10,16 @@ patches:
     path: patch.yaml
   - target:
       kind: ApplicationSet
-      name: .*
+      name: demo02-podinfo
     patch: |-
       - op: replace
         path: /metadata/name
-        value: podinfo2-prod-01
+        value: demo02-podinfo-prod-01
+  - target:
+      kind: ApplicationSet
+      name: demo02-httpbin
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: demo02-httpbin-prod-01
     
