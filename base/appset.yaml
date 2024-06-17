@@ -1,27 +1,58 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: podinfo2
+  name: demo02-podinfo
 spec:
   generators:
   - list:
       elements: []
   template:
     metadata:
-      name: 'podinfo2-{{cluster}}'
+      name: 'demo02-podinfo-{{cluster}}'
       annotations:
-        kargo.akuity.io/authorized-stage: 'podinfo2:*'
+        kargo.akuity.io/authorized-stage: 'demo02-podinfo:*'
     spec:
-      project: podinfo2
+      project: demo2
       source:
         chart: podinfo
         repoURL: https://stefanprodan.github.io/podinfo
-        targetRevision: 6.6.1
+        targetRevision: 6.6.0
         helm:
-          releaseName: podinfo2
+          releaseName: demo02-podinfo
       destination:
         server: '{{ url }}'
-        namespace: 'podinfo2-{{cluster}}'
+        namespace: 'demo02-podinfo-{{cluster}}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo02-httpbin
+spec:
+  generators:
+  - list:
+      elements: []
+  template:
+    metadata:
+      name: 'demo02-httpbin-{{cluster}}'
+      annotations:
+        kargo.akuity.io/authorized-stage: 'demo02-httpbin:*'
+    spec:
+      project: demo2
+      source:
+        chart: httpbin
+        repoURL: https://matheusfm.dev/charts/httpbin
+        targetRevision: 0.1.1
+        helm:
+          releaseName: demo02-httpbin
+      destination:
+        server: '{{ url }}'
+        namespace: 'demo02-httpbin-{{cluster}}'
       syncPolicy:
         syncOptions:
         - CreateNamespace=true
